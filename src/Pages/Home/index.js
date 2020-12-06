@@ -11,7 +11,7 @@ const Home = () => {
   const [recovered, setRecovered] = useState({});
   const [mapColorRange, setMapColorRange] = useState(["#ffffff", "#000000"]);
   const [selectedButton, setSelectedButton] = useState({});
-
+  //deneme
   useEffect(() => {
     // getCountries()
     //   .then(
