@@ -13,35 +13,32 @@ const Home = () => {
   const [selectedButton, setSelectedButton] = useState({});
 
   useEffect(() => {
-    getCountries()
-      .then(
-        (res) => {
-          // eslint-disable-next-line
-          res.data.map((e, i) => {setDeaths({
-            TR:10
-          })
-            // if (e.casesPerOneMillion > 0) {
-                
-            //   setDeaths((state) => ({
-            //     ...state,
-            //     [e.countryInfo.iso2]: e.deathsPerOneMillion,
-            //   }));
-            //   setRecovered((state) => ({
-            //     ...state,
-            //     [e.countryInfo.iso2]: e.recoveredPerOneMillion,
-            //   }));
-            //   setTotalCases((state) => ({
-            //     ...state,
-            //     [e.countryInfo.iso2]: e.casesPerOneMillion,
-            //   }));
-            // }
-          });
-        },
-        () => {
-          console.log("end");
-        }
-      )
-      .catch((err) => console.log(err));
+    // getCountries()
+    //   .then(
+    //     (res) => {
+    //       // eslint-disable-next-line
+    //       res.data.map((e, i) => {
+    //         if (e.casesPerOneMillion > 0) {
+    //           setDeaths((state) => ({
+    //             ...state,
+    //             [e.countryInfo.iso2]: e.deathsPerOneMillion,
+    //           }));
+    //           setRecovered((state) => ({
+    //             ...state,
+    //             [e.countryInfo.iso2]: e.recoveredPerOneMillion,
+    //           }));
+    //           setTotalCases((state) => ({
+    //             ...state,
+    //             [e.countryInfo.iso2]: e.casesPerOneMillion,
+    //           }));
+    //         }
+    //       });
+    //     },
+    //     () => {
+    //       console.log("end");
+    //     }
+    //   )
+    //   .catch((err) => console.log(err));
   }, []);
 
   return (

@@ -5,14 +5,12 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import Compare from "./Pages/Compare";
-import NotFound from "./Pages/NotFound";
 
 ReactDOM.render(
   <Router basename="/gonultas15">
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/compare" exact component={Compare} />
-      <Route path='*' exact={true} component={NotFound} />
     </Switch>
   </Router>,
   document.getElementById("root")
