@@ -90,6 +90,14 @@ const Home = () => {
             >
               Compare
             </button>
+            <button
+              className={cm.button}
+              onClick={() => {
+                history.push("/compareByDay");
+              }}
+            >
+              Compare By Day
+            </button>
             <VectorMap
               map={"world_mill"}
               backgroundColor="transparent" //change it to ocean blue: #0077be
