@@ -2,3 +2,24 @@
   margin: 0px;
   height: 100%;
 }
+.header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.dropdown {
+  margin-bottom: 20px;
+}
+.backButton {
+  position: absolute;
+  left: 0px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+.title {
+  /* margin-left: 30%; */
+  font-size: large;
+  font-weight: bold;
+  text-align: center;
+}
