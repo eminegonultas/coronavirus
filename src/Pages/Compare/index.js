@@ -4,6 +4,7 @@ import { Chart } from "react-google-charts";
 import { getCountries } from "../../Services/service";
 import Select, { components } from "react-select";
 import BackButton from "../../Images/back-button.png";
+import { SpinnerDotted } from "spinners-react";
 
 import { useHistory } from "react-router-dom";
 var options = [{ label: "", value: "" }];
@@ -100,7 +101,11 @@ const Compare = () => {
           width={"100%"}
           height={"400px"}
           chartType="ColumnChart"
-          loader={<div>Loading Chart</div>}
+          loader={
+            <div className={cm.spinner}>
+              <SpinnerDotted enabled={true} />
+            </div>
+          }
           data={[
             ["Countries", "Recovered", "Deaths", "Total Cases"],
             [
