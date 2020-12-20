@@ -28,3 +28,8 @@
   top: 40%;
   position: absolute;
 }
+.legend {
+  position: absolute;
+  right: 10%;
+  bottom: 30%;
+}

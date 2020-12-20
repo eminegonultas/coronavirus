@@ -4,6 +4,7 @@ import { getCountries } from "../../Services/service";
 import { VectorMap } from "react-jvectormap";
 import { useHistory } from "react-router-dom";
 import { SpinnerDotted } from "spinners-react";
+import Legend from "../../Components/Legend";
 
 const Home = () => {
   let history = useHistory();
@@ -13,6 +14,21 @@ const Home = () => {
   const [mapColorRange, setMapColorRange] = useState(["#ffffff", "#000000"]);
   const [selectedButton, setSelectedButton] = useState({});
   const [loader, setLoader] = useState(true);
+  const [legend, setLegend] = useState(false);
+  const [legendColors, setLegendColors] = useState([
+    { color: "#FF0000" },
+    { color: "#DF0000" },
+    { color: "#BF0000" },
+    { color: "#9F0000" },
+    { color: "#7F0000" },
+  ]);
+  const myItems = [
+    { color: "#FF0000" },
+    { color: "#DF0000" },
+    { color: "#BF0000" },
+    { color: "#9F0000" },
+    { color: "#7F0000" },
+  ];
   //deneme
   useEffect(() => {
     getCountries()
@@ -58,8 +74,16 @@ const Home = () => {
             <button
               className={cm.button}
               onClick={() => {
-                setMapColorRange(["#ff9999", "#b30000"]);
+                setMapColorRange(["#FF0000", "#7F0000"]);
                 setSelectedButton(deaths);
+                setLegendColors([
+                  { color: "#FF0000" },
+                  { color: "#DF0000" },
+                  { color: "#BF0000" },
+                  { color: "#9F0000" },
+                  { color: "#7F0000" },
+                ]);
+                setLegend(true);
               }}
             >
               Deaths
@@ -67,8 +91,16 @@ const Home = () => {
             <button
               className={cm.button}
               onClick={() => {
-                setMapColorRange(["#fefefe", "#f30000"]);
+                setMapColorRange(["#FFA500", "#FF8C00"]);
                 setSelectedButton(totalCases);
+                setLegend(true);
+                setLegendColors([
+                  { color: "#FFA500" },
+                  { color: "#FF9A00" },
+                  { color: "#FF9500" },
+                  { color: "#FF9000" },
+                  { color: "#FF8C00" },
+                ]);
               }}
             >
               Total Cases
@@ -76,8 +108,16 @@ const Home = () => {
             <button
               className={cm.button}
               onClick={() => {
-                setMapColorRange(["#000000", "#ffffff"]);
+                setMapColorRange(["#0000ff ", "#0000bf"]);
                 setSelectedButton(recovered);
+                setLegend(true);
+                setLegendColors([
+                  { color: "#0000ff" },
+                  { color: "#0000ef" },
+                  { color: "#0000df" },
+                  { color: "#0000cf" },
+                  { color: "#0000bf" },
+                ]);
               }}
             >
               Recovered
@@ -104,7 +144,7 @@ const Home = () => {
               zoomOnScroll={true}
               containerStyle={{
                 width: "100%",
-                height: "300px",
+                height: "450px",
               }}
               containerClassName="map"
               regionStyle={{
@@ -137,6 +177,9 @@ const Home = () => {
             />
           </>
         )}
+        <div className={cm.legend}>
+          {legend ? <Legend items={legendColors}></Legend> : <></>}
+        </div>
       </div>
     </>
   );

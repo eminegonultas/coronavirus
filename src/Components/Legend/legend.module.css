@@ -1,0 +1,15 @@
+.body {
+  margin: 0px;
+  height: 100%;
+  border-style: solid;
+  border-color: green;
+  padding: 2px 20px 2px 20px;
+  font-size: 8px;
+  border-width: thin;
+}
+.colorbox {
+  border-style: none;
+  border-color: greenyellow;
+  background-color: greenyellow;
+  width: 15px;
+}
