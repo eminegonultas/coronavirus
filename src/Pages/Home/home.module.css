@@ -30,6 +30,15 @@
 }
 .legend {
   position: absolute;
-  right: 10%;
+  left: 10%;
   bottom: 30%;
+}
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: green;
+  border-style: solid;
+  width: 300px;
+  margin: auto;
 }

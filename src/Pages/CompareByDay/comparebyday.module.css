@@ -18,10 +18,13 @@
   height: 30px;
 }
 .title {
-  /* margin-left: 30%; */
-  font-size: large;
-  font-weight: bold;
   text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: green;
+  border-style: solid;
+  width: 300px;
+  margin: auto;
 }
 .spinner {
   left: 43%;

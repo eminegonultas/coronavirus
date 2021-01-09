@@ -5,9 +5,11 @@ import { VectorMap } from "react-jvectormap";
 import { useHistory } from "react-router-dom";
 import { SpinnerDotted } from "spinners-react";
 import Legend from "../../Components/Legend";
+import NorthSign from "../../Images/north-sign.png";
 
 const Home = () => {
   let history = useHistory();
+  const [initialize, setInitialize] = useState(false);
   const [deaths, setDeaths] = useState({});
   const [totalCases, setTotalCases] = useState({});
   const [recovered, setRecovered] = useState({});
@@ -16,20 +18,29 @@ const Home = () => {
   const [loader, setLoader] = useState(true);
   const [legend, setLegend] = useState(false);
   const [legendColors, setLegendColors] = useState([
-    { color: "#FF0000" },
+    { color: "#FF0000", title: "Deaths", range: "" },
     { color: "#DF0000" },
     { color: "#BF0000" },
     { color: "#9F0000" },
     { color: "#7F0000" },
   ]);
-  const myItems = [
-    { color: "#FF0000" },
-    { color: "#DF0000" },
-    { color: "#BF0000" },
-    { color: "#9F0000" },
-    { color: "#7F0000" },
-  ];
-  //deneme
+  useEffect(() => {
+    let x = 0.0;
+    getCountries()
+      .then(
+        (res) => {
+          // eslint-disable-next-line
+          res.data.map((e, i) => {
+            if (e.recoveredPerOneMillion > x) {
+              x = e.recoveredPerOneMillion;
+              console.log(x);
+            }
+          });
+        },
+        () => {}
+      )
+      .catch((err) => console.log(err));
+  }, []);
   useEffect(() => {
     getCountries()
       .then(
@@ -54,12 +65,25 @@ const Home = () => {
           });
           Promise.all(wait).then(() => {
             setLoader(false);
+            setInitialize(true);
+            setLegend(true);
           });
         },
         () => {}
       )
       .catch((err) => console.log(err));
   }, []);
+  useEffect(() => {
+    setMapColorRange(["#FF0000", "#3F0000"]);
+    setSelectedButton(deaths);
+    setLegendColors([
+      { color: "#FF0000", title: "Deaths", range: "0-450" },
+      { color: "#CF0000", range: "451-900" },
+      { color: "#9F0000", range: "901-1350" },
+      { color: "#6F0000", range: "1351-1800" },
+      { color: "#3F0000", range: ">1800" },
+    ]);
+  }, [initialize]);
 
   return (
     <>
@@ -71,17 +95,18 @@ const Home = () => {
         ) : (
           <>
             {" "}
+            <div className={cm.title}>Coronavirus World Map</div>
             <button
               className={cm.button}
               onClick={() => {
                 setMapColorRange(["#FF0000", "#7F0000"]);
                 setSelectedButton(deaths);
                 setLegendColors([
-                  { color: "#FF0000" },
-                  { color: "#DF0000" },
-                  { color: "#BF0000" },
-                  { color: "#9F0000" },
-                  { color: "#7F0000" },
+                  { color: "#FF0000", title: "Deaths", range: "0-450" },
+                  { color: "#CF0000", range: "451-900" },
+                  { color: "#9F0000", range: "901-1350" },
+                  { color: "#6F0000", range: "1351-1800" },
+                  { color: "#3F0000", range: ">1800" },
                 ]);
                 setLegend(true);
               }}
@@ -91,15 +116,15 @@ const Home = () => {
             <button
               className={cm.button}
               onClick={() => {
-                setMapColorRange(["#FFA500", "#FF8C00"]);
+                setMapColorRange(["#FFF500", "#FF3500"]);
                 setSelectedButton(totalCases);
                 setLegend(true);
                 setLegendColors([
-                  { color: "#FFA500" },
-                  { color: "#FF9A00" },
-                  { color: "#FF9500" },
-                  { color: "#FF9000" },
-                  { color: "#FF8C00" },
+                  { color: "#FFF500", title: "Total Cases", range: "0-25000" },
+                  { color: "#FFCC00", range: "25001-50000" },
+                  { color: "#FF9F50", range: "50001-75000" },
+                  { color: "#FF6347", range: "75001-100000" },
+                  { color: "#FF3500", range: ">100000" },
                 ]);
               }}
             >
@@ -108,15 +133,15 @@ const Home = () => {
             <button
               className={cm.button}
               onClick={() => {
-                setMapColorRange(["#0000ff ", "#0000bf"]);
+                setMapColorRange(["#00BFFF ", "#00008B"]);
                 setSelectedButton(recovered);
                 setLegend(true);
                 setLegendColors([
-                  { color: "#0000ff" },
-                  { color: "#0000ef" },
-                  { color: "#0000df" },
-                  { color: "#0000cf" },
-                  { color: "#0000bf" },
+                  { color: "#00BFFF", title: "Recovered", range: "0-20000" },
+                  { color: "#1E90FF", range: "20001-40000" },
+                  { color: "#4169E1", range: "40001-60000" },
+                  { color: "#0000FF", range: "60001-80000" },
+                  { color: "#00008B", range: ">80000" },
                 ]);
               }}
             >
@@ -138,6 +163,14 @@ const Home = () => {
             >
               Compare By Day
             </button>
+            <img
+              src={NorthSign}
+              style={{
+                width: "50px",
+                right: 10,
+                position: "fixed",
+              }}
+            ></img>
             <VectorMap
               map={"world_mill"}
               backgroundColor="transparent" //change it to ocean blue: #0077be
