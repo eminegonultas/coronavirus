@@ -46,7 +46,11 @@ const Legend = ({ items }) => {
           <td>{items[4].range}</td>
         </tr>
       </table>
-      <div className={cm.subtitle}>*Per One Million</div>
+      {items[0] && items[0].title && items[0].title !== "Vaccine" ? (
+        <div className={cm.subtitle}>*Per One Million</div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

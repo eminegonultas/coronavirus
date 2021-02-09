@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import cm from "./home.module.css";
-import { getCountries } from "../../Services/service";
+import { getCountries, vaccineData } from "../../Services/service";
 import { VectorMap } from "react-jvectormap";
 import { useHistory } from "react-router-dom";
 import { SpinnerDotted } from "spinners-react";
@@ -13,6 +13,8 @@ const Home = () => {
   const [deaths, setDeaths] = useState({});
   const [totalCases, setTotalCases] = useState({});
   const [recovered, setRecovered] = useState({});
+  const [vaccine, setVaccine] = useState({});
+  const [country, setCountry] = useState([]);
   const [mapColorRange, setMapColorRange] = useState(["#ffffff", "#000000"]);
   const [selectedButton, setSelectedButton] = useState({});
   const [loader, setLoader] = useState(true);
@@ -25,6 +27,39 @@ const Home = () => {
     { color: "#7F0000" },
   ]);
   useEffect(() => {
+    getCountries().then(
+      (res) => {
+        // eslint-disable-next-line
+        res.data.map((e, i) => {
+          setCountry((state) => [
+            ...state,
+            { country: e.country, iso: e.countryInfo.iso2 },
+          ]);
+        });
+      },
+      () => {}
+    );
+  }, []);
+  useEffect(() => {
+    setVaccine({});
+    funx();
+  }, [country]);
+  const funx = () => {
+    vaccineData().then((res2) => {
+      res2.data.map((x, y) => {
+        //console.log(x.country, Object.values(x.timeline)[0]);
+        var temp = country.find((t) => t.country == x.country)
+          ? country.find((t) => t.country == x.country)
+          : "";
+        setVaccine((state) => ({
+          ...state,
+          [temp.iso]: Object.values(x.timeline)[0],
+        }));
+      });
+    });
+  };
+
+  useEffect(() => {
     let x = 0.0;
     getCountries()
       .then(
@@ -33,7 +68,6 @@ const Home = () => {
           res.data.map((e, i) => {
             if (e.recoveredPerOneMillion > x) {
               x = e.recoveredPerOneMillion;
-              console.log(x);
             }
           });
         },
@@ -146,6 +180,23 @@ const Home = () => {
               }}
             >
               Recovered
+            </button>
+            <button
+              className={cm.button}
+              onClick={() => {
+                setMapColorRange(["#e4e4e4 ", "#04e4e4"]);
+                setSelectedButton(vaccine);
+                setLegend(true);
+                setLegendColors([
+                  { color: "#e4e4e4", title: "Vaccine", range: "0-2000000" },
+                  { color: "#b3e4e4", range: "2000001-4000000" },
+                  { color: "#82e4e4", range: "4000001-6000000" },
+                  { color: "#41e4e4", range: "6000001-8000000" },
+                  { color: "#00e4e4", range: ">8000000" },
+                ]);
+              }}
+            >
+              Vaccine
             </button>
             <button
               className={cm.button}
