@@ -12,7 +12,6 @@ const Home = () => {
   const [initialize, setInitialize] = useState(false);
   const [deaths, setDeaths] = useState({});
   const [totalCases, setTotalCases] = useState({});
-  const [vaccine, setVaccine] = useState({});
   const [recovered, setRecovered] = useState({});
   const [vaccine, setVaccine] = useState({});
   const [country, setCountry] = useState([]);
@@ -27,7 +26,6 @@ const Home = () => {
     { color: "#9F0000" },
     { color: "#7F0000" },
   ]);
-
   useEffect(() => {
     getCountries().then(
       (res) => {
@@ -77,24 +75,6 @@ const Home = () => {
       )
       .catch((err) => console.log(err));
   }, []);
-  useEffect(() => {
-    let x = 0.0;
-    getCountries()
-      .then(
-        (res) => {
-          // eslint-disable-next-line
-          res.data.map((e, i) => {
-            if (e.vaccinePerOneMillion > x) {
-              x = e.vaccinePerOneMillion;
-              console.log(x);
-            }
-          });
-        },
-        () => {}
-      )
-      .catch((err) => console.log(err));
-  }, []);
-  
   useEffect(() => {
     getCountries()
       .then(
@@ -204,7 +184,6 @@ const Home = () => {
             <button
               className={cm.button}
               onClick={() => {
-<<<<<<< Updated upstream
                 setMapColorRange(["#e4e4e4 ", "#04e4e4"]);
                 setSelectedButton(vaccine);
                 setLegend(true);
@@ -214,17 +193,6 @@ const Home = () => {
                   { color: "#82e4e4", range: "4000001-6000000" },
                   { color: "#41e4e4", range: "6000001-8000000" },
                   { color: "#00e4e4", range: ">8000000" },
-=======
-                setMapColorRange(["#00BFFF ", "#00008B"]);
-                setSelectedButton(recovered);
-                setLegend(true);
-                setLegendColors([
-                  { color: "#00BFFF", title: "Recovered", range: "0-20000" },
-                  { color: "#1E90FF", range: "20001-40000" },
-                  { color: "#4169E1", range: "40001-60000" },
-                  { color: "#0000FF", range: "60001-80000" },
-                  { color: "#00008B", range: ">80000" },
->>>>>>> Stashed changes
                 ]);
               }}
             >
