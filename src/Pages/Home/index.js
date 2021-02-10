@@ -41,8 +41,11 @@ const Home = () => {
     );
   }, []);
   useEffect(() => {
-    setVaccine({});
-    funx();
+    if (country.length > 215) {
+      console.log(country);
+      setVaccine({});
+      funx();
+    }
   }, [country]);
   const funx = () => {
     vaccineData().then((res2) => {
